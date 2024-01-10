@@ -40,4 +40,24 @@
 .header {
   height: 48px;
   background:#161616;
+  text-align: left;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.header-text {
+  margin-left: 5px;
+}
+
+.navbar-button {
+  height: 48px;
+  width: 48px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
+  transition: all .2s ease-out;
 }

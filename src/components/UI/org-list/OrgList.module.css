@@ -1,0 +1,21 @@
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.orgItem {
+    width: 220px;
+    text-align: left;
+    padding: 6px 0 6px 30px;
+    color: #636363;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.orgItem:hover {
+    background-color:  #e5e5e5;
+    cursor: pointer;
+    transition: all 20ms ease-in-out;
+}
