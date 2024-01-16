@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  color: #161616;
 }
 
 .App-logo {
@@ -42,13 +47,23 @@
   background:#161616;
   text-align: left;
   color: white;
-  font-size: 18px;
+  font-size: 14px;
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(100% - 48px);
+  z-index: 8000;
   align-items: center;
 }
 
 .header-text {
-  margin-left: 5px;
+  font-weight: 600;
+}
+
+.header-text span {
+  font-weight: 400;
 }
 
 .navbar-button {
@@ -61,3 +76,248 @@
   font-size: 25px;
   transition: all .2s ease-out;
 }
+
+
+
+
+
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.orgItem {
+  width: 220px;
+  text-align: left;
+  padding: 6px 0 6px 30px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.orgItem:hover {
+  background-color:  #e5e5e5;
+  cursor: pointer;
+  transition: all 20ms ease-in-out;
+}
+
+
+
+
+
+.navbar {
+  position: fixed;
+  top: 48px;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(255, 255, 255);
+  box-shadow: 3px 0px 15px 0px rgba(78, 78, 78, 0.5);
+  transition: all .13s linear;
+  z-index: 7000;
+}
+
+.addButton {
+  position: relative;
+  background-color: #0f62fe;
+  border: none;
+  color: white;
+  font-size: 14px;
+  padding: 15px 63px 15px 15px;
+  margin: 28px;
+  border: 1px solid rgba(255, 255, 255, 0);
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #0f57df;
+}
+
+.plus {
+  position: absolute;
+  right: 1rem;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+
+
+
+
+
+.modal {
+  visibility: hidden;
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #00000071;
+  z-index: 9000;
+  transition: all .2s ease;
+}
+
+.modalForm {
+  width: 600px;
+  height: auto;
+  background: #ffffff;
+  position: absolute;
+  left: calc(50vw - 300px);
+  transition: all .2s ease;
+}
+
+.modalForm header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modalForm h2 {
+  font-weight: 400;
+  margin: 0;
+  padding: 15px;
+  font-size: 21px;
+}
+
+.modalForm > header > button {
+  border: none;
+  background: #ffffff;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalForm > header > button:hover {
+  background: #e4e4e4;
+}
+
+.modalInput {
+  width: 100%;
+  text-align: left;
+}
+
+.modalInput label {
+  padding-left: 15px;
+  font-size: 14px;
+}
+
+.modalInput input, .modalInput select {
+  display: block;
+  box-sizing: border-box;
+  width: calc(100% - 30px);
+  margin: 15px;
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid gray;
+  padding: 15px;
+}
+
+.modalInput input:focus, .modalInput select:focus {
+  border-bottom: 1px solid white;
+  outline: 2px solid #0f62fe;;
+}
+
+.modalButtons {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  height: 60px;
+}
+
+.modalButtons button {
+  width: 50%;
+  height: 100%;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.firstButton {
+  background-color: #393939;
+}
+
+.firstButton:hover {
+  background-color: #4b4b4b;
+}
+
+.secondButton {
+  background-color: #0f62fe;
+}
+
+.secondButton:hover {
+  background-color: #0253e9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.orgHeader {
+  text-align: left;
+  margin: 30px 30px;
+  font-weight: 300;
+  font-size: 42px;
+}
+
+
+.orgButtons {
+  display: flex;
+  justify-content: end;
+  height: 50px;
+  width: calc(100% - 60px);
+  margin: 0 30px;
+}
+
+.orgButtons button {
+  background-color: #0f62fe;
+  height: 100%;
+  width: 200px;
+  cursor: pointer;
+  color: white;
+  border: none
+}
+
+.orgButtons button:hover {
+  background-color: #0253e9;
+}
+
+.stationsTable {
+  width: calc(100% - 60px);
+  margin: 0 30px;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.stationsTable thead {
+  background-color: #e0e0e0;
+}
+
+.stationsTable tr {
+  height: 50px;
+}
+
+.stationsTable tr:not(thead > tr):hover {
+  background-color: #e4e4e4;
+}
+
+.stationsTable td, .stationsTable th {
+  padding-left: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: start;
+}
+
+
+
