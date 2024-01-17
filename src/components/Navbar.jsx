@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import OrgList from './OrgList';
+import StateContext from './StateContext';
 
-const Navbar = ({isOpen, openModal}) => {
+const Navbar = ({openModal}) => {
+    const {isNavbarOpen, setIsNavbarOpen} = useContext(StateContext);
+
     return (
         <div className='navbar' style={{
-            left: isOpen ? 0 : -250,
-            right: isOpen ? 'calc(100% - 250px)' : 'calc(100% + 30px)'
+            left: isNavbarOpen ? 0 : -250,
+            right: isNavbarOpen ? 'calc(100% - 250px)' : 'calc(100% + 30px)'
         }}>
             <OrgList/>
             <button className='addButton' onClick={() => openModal()}>
