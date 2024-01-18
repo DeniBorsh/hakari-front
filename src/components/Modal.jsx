@@ -8,6 +8,17 @@ const Modal = ({title, labelText, inputPlaceholder, isOpen, setIsOpen, onSubmit}
     const {isNavbarOpen, setIsNavbarOpen} = useContext(StateContext);
     const router = useNavigate()
 
+    function submitData()  {
+        if (name !== '') {
+            const data = onSubmit(name);
+            console.log(data);
+            setIsOpen(false);
+            setIsNavbarOpen(false);
+            router('/org/' + data.id);
+        }
+        else return
+    }
+
     return (
         <div id='modal' className='modal' style={{visibility: isOpen ? 'visible' : 'hidden', opacity: isOpen ? 1 : 0}} onClick={(e) => {
             if (e.target.id === 'modal')
@@ -27,16 +38,7 @@ const Modal = ({title, labelText, inputPlaceholder, isOpen, setIsOpen, onSubmit}
                 </div>
                 <div className='modalButtons'>
                     <button onClick={() => setIsOpen(false)} className='firstButton'>Отмена</button>
-                    <button onClick={() => {
-                        if (name !== '') {
-                            const data = onSubmit(name);
-                            console.log(data);
-                            setIsOpen(false);
-                            setIsNavbarOpen(false);
-                            router('/org/' + data.id);
-                        }
-                        else return
-                    }} style={{backgroundColor: name !== '' ? '#0f62fe' : '#c6c6c6'}} className='secondButton'>Сохранить</button>
+                    <button onClick={submitData} style={{backgroundColor: name !== '' ? '#0f62fe' : '#c6c6c6'}} className='secondButton'>Сохранить</button>
                 </div>
             </div>
         </div>

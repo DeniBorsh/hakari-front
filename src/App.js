@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import AppRouter from './components/AppRouter';
@@ -6,10 +6,28 @@ import Modal from './components/Modal';
 import Navbar from './components/Navbar'
 import OrgService from './API/OrgService';
 import StateContext from './components/StateContext';
+import { useFetching } from './hooks/useFetching';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isNavbarOpen, setIsNavbarOpen } = useContext(StateContext);
+  const [orgs, setOrgs] = useState([]);
+
+  const [fetchOrgs, isFetchLoading, fetchErr] = useFetching(async () => {
+    const _orgs = await OrgService.fetchOrgs();
+    setOrgs(_orgs);
+  })
+
+  const [postOrg, isPostLoading, postErr] = useFetching(async (orgName) => {
+    const data = await OrgService.postOrg(orgName);
+    fetchOrgs();
+    return data;
+  })
+
+  useEffect(() => {
+    fetchOrgs();
+  }, [])
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -19,18 +37,15 @@ function App() {
         </header>
         <div style={{width: '100%', height: '48px'}}></div>
         <AppRouter/>
-        <Navbar openModal={() => setIsModalOpen(true)}/>
-        <Modal onSubmit={(orgName) => {
-            const data = OrgService.postOrg(orgName);
-            return data;
-        }} 
+        <Navbar orgs={orgs} openModal={() => setIsModalOpen(true)}/>
+        <Modal onSubmit={postOrg} 
           title="Добавить организацию" 
           labelText="Название организации" 
           inputPlaceholder="Введите название организации" 
           isOpen={isModalOpen} 
           setIsOpen={setIsModalOpen}
         />  
-        <div style={{display: isNavbarOpen ? 'block' : 'none', position: 'fixed',zIndex: 6000, top:0,left:0,right:0,bottom:0}} onClick={() => setIsNavbarOpen(false)}></div>
+        <div className='navbarCloser' style={{display: isNavbarOpen ? 'block' : 'none'}} onClick={() => setIsNavbarOpen(false)}></div>
       </BrowserRouter>
     </div>
   );

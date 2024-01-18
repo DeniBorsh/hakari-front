@@ -3,14 +3,8 @@ import { useFetching } from '../hooks/useFetching'
 import OrgService from '../API/OrgService';
 import { useNavigate } from 'react-router-dom';
 
-const OrgList = () => {
-    const [orgs, setOrgs] = useState([]);
+const OrgList = ({orgs}) => {
     const router = useNavigate();
-
-    useEffect(async () => {
-        const _orgs = await OrgService.fetchOrgs();
-        setOrgs(_orgs);
-    }, [])
 
     return (
        <ul className='list'>

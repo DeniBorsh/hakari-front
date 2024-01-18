@@ -20,7 +20,7 @@ export default class OrgService {
         return obj
     }
 
-    static postOrg(orgName) {
+    static async postOrg(orgName) {
         fetch(API_URL + "/organization", {
             method: "POST",
             headers: {

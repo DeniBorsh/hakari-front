@@ -15,11 +15,15 @@ const OrgPage = () => {
     const [isCameraModalOpen, setIsCameraModalOpen] = useState(false);
     const {isNavbarOpen, setIsNavbarOpen} = useContext(StateContext);
 
-    useEffect(async () => {
+    const [getById, isLoading, err] = useFetching(async (id) => {
         const response = await OrgService.getById(params.id);
         setOrg(response.organization);
         setStations(response.stations);
-    }, [params])
+    })
+
+    useEffect(() => {
+        getById(params.id);
+    }, [params.id])
 
     return (
         <div>
