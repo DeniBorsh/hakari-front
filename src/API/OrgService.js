@@ -21,16 +21,20 @@ export default class OrgService {
     }
 
     static async postOrg(orgName) {
-        fetch(API_URL + "/organization", {
+        return fetch(API_URL + "/organization", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
             },
             body: JSON.stringify({ name: orgName }),
-        }).then(async (data) => {
-            let createdObj = await data.json();
-            return createdObj;
+        }).then(async (response) => {
+            if (response.ok) {
+                return await response.json();
+            } else {
+                throw new Error('Ошибка при выполнении POST запроса');
+            }
         });
-      }
+    }
+    
 }
 

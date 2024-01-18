@@ -8,10 +8,9 @@ const Modal = ({title, labelText, inputPlaceholder, isOpen, setIsOpen, onSubmit}
     const {isNavbarOpen, setIsNavbarOpen} = useContext(StateContext);
     const router = useNavigate()
 
-    function submitData()  {
+    async function submitData()  {
         if (name !== '') {
-            const data = onSubmit(name);
-            console.log(data);
+            const data = await onSubmit(name);
             setIsOpen(false);
             setIsNavbarOpen(false);
             router('/org/' + data.id);

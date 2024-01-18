@@ -18,11 +18,16 @@ function App() {
     setOrgs(_orgs);
   })
 
-  const [postOrg, isPostLoading, postErr] = useFetching(async (orgName) => {
-    const data = await OrgService.postOrg(orgName);
-    fetchOrgs();
-    return data;
-  })
+  const postOrg = async (orgName) => {
+    try {
+        const data = await OrgService.postOrg(orgName);
+        fetchOrgs();
+        return data;
+    } catch (error) {
+        console.error("Ошибка при создании организации:", error);
+    }
+}
+
 
   useEffect(() => {
     fetchOrgs();

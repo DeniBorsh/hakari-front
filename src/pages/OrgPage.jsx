@@ -16,13 +16,14 @@ const OrgPage = () => {
     const {isNavbarOpen, setIsNavbarOpen} = useContext(StateContext);
 
     const [getById, isLoading, err] = useFetching(async (id) => {
-        const response = await OrgService.getById(params.id);
+        const response = await OrgService.getById(id);
         setOrg(response.organization);
         setStations(response.stations);
     })
 
     useEffect(() => {
         getById(params.id);
+        setIsNavbarOpen(false);
     }, [params.id])
 
     return (
