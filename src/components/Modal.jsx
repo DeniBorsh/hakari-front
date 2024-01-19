@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import StateContext from './StateContext';
 import StateProvider from './StateProvider';
 
-const Modal = ({title, labelText, inputPlaceholder, isOpen, setIsOpen, onSubmit}) => {
+const Modal = ({title, labelText, inputPlaceholder, isOpen, setIsOpen, onSubmit, stationPosting = false}) => {
     const [name, setName] = useState('');
     const {isNavbarOpen, setIsNavbarOpen} = useContext(StateContext);
     const router = useNavigate()
@@ -13,7 +13,7 @@ const Modal = ({title, labelText, inputPlaceholder, isOpen, setIsOpen, onSubmit}
             const data = await onSubmit(name);
             setIsOpen(false);
             setIsNavbarOpen(false);
-            router('/org/' + data.id);
+            if (!stationPosting) router('/org/' + data.id);
         }
         else return
     }

@@ -6,7 +6,7 @@ const Select = ({options, defaultValue, value, onChange}) => {
         <select className={cl.mySelect} value={value} onChange={e => onChange(e.target.value)}>
             <option value="">{defaultValue}</option>
             {options.map(opt => 
-                <option key={opt.id} value={opt.stationName}>{opt.stationName}</option>  
+                <option key={opt.id} value={opt.id}>{opt.name}</option>  
             )}
         </select>
     );

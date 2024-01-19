@@ -1,10 +1,10 @@
 import React from 'react';
 
-const StationRow = ({rowId, rowName}) => {
+const StationRow = ({station}) => {
     return (
         <tr className='stationsRow'>
-            <td><div>{rowName}</div></td>
-            <td><div>{rowId}</div></td>
+            <td><div>{station.name}</div></td>
+            <td><div>{station.glasses}</div></td>
         </tr>
     );
 };

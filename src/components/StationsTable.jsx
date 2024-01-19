@@ -11,7 +11,7 @@ const StationsTable = ({stations}) => {
                 </tr>
             </thead>
             <tbody aria-live='polite'>
-                {stations.map(st => <StationRow rowId={st.id} rowName={st.stationName}/>)}
+                {stations.map(station => <StationRow station={station}/>)}
             </tbody>
         </table>
     );

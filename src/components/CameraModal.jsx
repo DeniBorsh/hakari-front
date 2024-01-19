@@ -2,16 +2,25 @@ import React, { useContext, useState } from 'react';
 import Select from './UI/Select';
 import StateContext from './StateContext';
 
-const CameraModal = ({title="Привязать камеру", labelText="URL IP камеры", inputPlaceholder="rtsp://...", isOpen, setIsOpen, onSubmit, stations}) => {
-    const [stationName, setStationName] = useState("")
-    const [cameraId, setCameraId] = useState(false);
+const CameraModal = ({onSubmit, title="Привязать камеру", labelText="URL IP камеры", inputPlaceholder="rtsp://...", isOpen, setIsOpen, stations}) => {
+    const [stationId, setStationId] = useState("")
+    const [cameraUrl, setCameraUrl] = useState(false);
     const [isSubmitAllowed, setIsSubmitAllowed] = useState(false);
     const {isNavbarOpen, setIsNavbarOpen} = useContext(StateContext);
 
     function checkAllowment(val, stationSelect=false) {
         stationSelect 
-        ? setIsSubmitAllowed(cameraId.length > 0 && val.length > 0)
-        : setIsSubmitAllowed(stationName.length > 0 && val.length > 0)
+        ? setIsSubmitAllowed(cameraUrl.length > 0 && val.length > 0)
+        : setIsSubmitAllowed(stationId.length > 0 && val.length > 0)
+    }
+
+    async function submitData()  {
+        if (stationId !== '') {
+            const data = await onSubmit(stationId, cameraUrl);
+            setIsOpen(false);
+            setIsNavbarOpen(false);
+        }
+        else return
     }
 
     return (
@@ -30,21 +39,19 @@ const CameraModal = ({title="Привязать камеру", labelText="URL IP
                 <div className='modalInput'>
                     <label htmlFor="modalSelect">Стейшн</label>
                     <Select
-                        value={stationName}
-                        onChange={val => {setStationName(val); checkAllowment(val, true)}}
+                        value={stationId}
+                        onChange={val => {setStationId(val); checkAllowment(val, true)}}
                         defaultValue="Выберите стэйшн"
                         options={stations}
                     />
                 </div>
                 <div className='modalInput'>
                     <label htmlFor="modalInput">{labelText}</label>
-                    <input onChange={(e) => {setCameraId(e.target.value); checkAllowment(e.target.value);}} required type="text" id='modalInput' placeholder={inputPlaceholder}/>
+                    <input onChange={(e) => {setCameraUrl(e.target.value); checkAllowment(e.target.value);}} required type="text" id='modalInput' placeholder={inputPlaceholder}/>
                 </div>
                 <div className='modalButtons'>
                     <button onClick={() => setIsOpen(false)} className='firstButton'>Отмена</button>
-                    <button onClick={() => {
-                        onSubmit(stationName)
-                    }} style={{backgroundColor: isSubmitAllowed ? '#0f62fe' : '#c6c6c6'}} className='secondButton'>Привязать</button>
+                    <button onClick={submitData} style={{backgroundColor: isSubmitAllowed ? '#0f62fe' : '#c6c6c6'}} className='secondButton'>Привязать</button>
                 </div>
             </div>
         </div>

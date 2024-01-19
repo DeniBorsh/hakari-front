@@ -26,6 +26,25 @@ const OrgPage = () => {
         setIsNavbarOpen(false);
     }, [params.id])
 
+    const postStation = async (stationName) => {
+        try {
+            const data = await OrgService.postStation(params.id, stationName);
+            getById(params.id);
+            return data;
+        } catch (error) {
+            console.error("Ошибка при добавлении станции:", error);
+        }
+    }
+
+    const postCamera = async (stationId, cameraUrl) => {
+        try {
+            const data = await OrgService.postCamera(stationId, cameraUrl);
+            return data;
+        } catch (error) {
+            console.error("Ошибка при привязке камеры:", error);
+        }
+    }
+
     return (
         <div>
             <h1 className="orgHeader">{org.name || "NOT FOUND"}</h1>
@@ -33,8 +52,20 @@ const OrgPage = () => {
                 <button onClick={() => setIsModalOpen(true)}>Добавить стэйшн</button>
                 <button onClick={() => setIsCameraModalOpen(true)}>Привязать камеру</button>
             </div>
-            <Modal title="Добавить стейшн" labelText="Название стейшена" inputPlaceholder="Введите название стейшна..." isOpen={isModalOpen} setIsOpen={setIsModalOpen}/>
-            <CameraModal isOpen={isCameraModalOpen} setIsOpen={setIsCameraModalOpen} stations={stations}/>
+            <Modal 
+                onSubmit={postStation}
+                title="Добавить стейшн" 
+                labelText="Название стейшена" 
+                inputPlaceholder="Введите название стейшна..." 
+                isOpen={isModalOpen} 
+                setIsOpen={setIsModalOpen}
+            />
+            <CameraModal 
+                onSubmit={postCamera}
+                isOpen={isCameraModalOpen}
+                setIsOpen={setIsCameraModalOpen}
+                stations={stations}
+            />
             <StationsTable stations={stations}/>
         </div>
     );
