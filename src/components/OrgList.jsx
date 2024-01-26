@@ -3,7 +3,7 @@ import { useFetching } from '../hooks/useFetching'
 import OrgService from '../API/OrgService';
 import { useNavigate } from 'react-router-dom';
 
-const OrgList = ({orgs}) => {
+const OrgList = ({orgs, deleteOrg}) => {
     const router = useNavigate();
 
     return (

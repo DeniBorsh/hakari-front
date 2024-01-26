@@ -10,21 +10,43 @@ import StateContext from '../components/StateContext';
 const OrgPage = () => {
     const params = useParams();
     const [stations, setStations] = useState([]);
-    const [org, setOrg] = useState([]);
+    const [org, setOrg] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isCameraModalOpen, setIsCameraModalOpen] = useState(false);
+    const [shouldPlaySound, setShouldPlaySound] = useState(false);
+    const [shouldBePlayingSound, setShouldBePlayingSound] = useState(false);
     const {isNavbarOpen, setIsNavbarOpen} = useContext(StateContext);
+    const audio = new Audio("/audio/bruh.mp3");
+
 
     const [getById, isLoading, err] = useFetching(async (id) => {
         const response = await OrgService.getById(id);
         setOrg(response.organization);
         setStations(response.stations);
-    })
+    });
 
     useEffect(() => {
         getById(params.id);
         setIsNavbarOpen(false);
-    }, [params.id])
+        const interval = setInterval(() => {
+            getById(params.id);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [params.id]);
+
+    useEffect(() => {
+        const playSound = stations.some(station => station.glasses < 15);
+        setShouldPlaySound(playSound);
+        const bePlayingSound = stations.some(station => station.glasses < 5);
+        setShouldBePlayingSound(bePlayingSound);
+    }, [stations]);
+    
+    useEffect(() => {
+        if (shouldPlaySound) audio.play();
+        const playAudioInterval = shouldBePlayingSound ? setInterval(() => audio.play(), 60000) : null;
+        return () => {if (playAudioInterval) clearInterval(playAudioInterval)};
+    }, [shouldPlaySound, shouldBePlayingSound]); 
+
 
     const postStation = async (stationName) => {
         try {
@@ -65,7 +87,7 @@ const OrgPage = () => {
                 isOpen={isCameraModalOpen}
                 setIsOpen={setIsCameraModalOpen}
                 stations={stations}
-            />
+                />
             <StationsTable stations={stations}/>
         </div>
     );

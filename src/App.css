@@ -103,6 +103,13 @@
   transition: all 20ms ease-in-out;
 }
 
+.orgDeleteButton {
+  display:inline;
+  background: red;
+  padding: 5px;
+  margin-left: auto;
+}
+
 
 
 
@@ -310,7 +317,7 @@
   font-size: 14px;
 }
 
-.stationsTable thead {
+.stationsTable thead tr {
   background-color: #e0e0e0;
 }
 

@@ -17,6 +17,7 @@ const CameraModal = ({onSubmit, title="Привязать камеру", labelTe
     async function submitData()  {
         if (stationId !== '') {
             const data = await onSubmit(stationId, cameraUrl);
+            console.log(data);
             setIsOpen(false);
             setIsNavbarOpen(false);
         }

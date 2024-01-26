@@ -67,7 +67,25 @@ export default class OrgService {
             }
         });
     }
+
+    static async deleteOrganization(organizationId) {
+        if (!organizationId) {
+            console.error('Organization ID is required');
+            return;
+        }
     
+        try {
+            return await fetch(`/delete_organization/${organizationId}`).then(async(response) => {
+                if (response.ok) {
+                    return await response.json();
+                } else {
+                    throw new Error('Ошибка при выполнении DELETE запроса');
+                }
+            });
+        } catch (error) {
+            console.error('Error during the delete operation:', error);
+        }
+    }
     
 
 }

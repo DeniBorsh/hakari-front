@@ -28,6 +28,12 @@ function App() {
     }
   }
 
+  const deleteOrg = async (id) => {
+    const response = await OrgService.deleteOrganization(id);
+    console.log(response);
+    fetchOrgs();
+  }
+
 
   useEffect(() => {
     fetchOrgs();
@@ -42,7 +48,7 @@ function App() {
         </header>
         <div style={{width: '100%', height: '48px'}}></div>
         <AppRouter/>
-        <Navbar orgs={orgs} openModal={() => setIsModalOpen(true)}/>
+        <Navbar orgs={orgs} openModal={() => setIsModalOpen(true)} deleteOrg={deleteOrg}/>
         <Modal onSubmit={postOrg} 
           title="Добавить организацию" 
           labelText="Название организации" 
